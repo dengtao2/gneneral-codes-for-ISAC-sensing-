@@ -1,0 +1,19 @@
+% Synchrosqueezing Transform example
+% Generate synthetic signal
+fs = 100; % Sampling frequency
+t = 0:1/fs:1-1/fs; % Time vector
+f1 = 5; % Frequency of the first sinusoid
+f2 = 20; % Frequency of the second sinusoid
+x = 0.01*sin(2*pi*f1*t) + 0.01*sin(2*pi*f2*t.*(t>0.5));
+
+figure(1)
+subplot(2,1,1) % raw signal
+plot(t,x)
+xlabel('Time(s)')
+ylabel('Amplitude')
+subplot(2,1,2)
+[sst,f] = wsst(x,fs); % Wavelet synchrosqueezed transform
+hp = pcolor(t,f,abs(sst));
+hp.EdgeColor = 'none';
+title('Wavelet Synchrosqueezed Transform');
+xlabel('Time'); ylabel('Hz');
